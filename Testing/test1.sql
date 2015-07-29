@@ -1,15 +1,6 @@
-USE [Warehouse]
-GO
 
-/****** Object:  View [dbo].[StatusBoardData]    Script Date: 7/29/2015 2:10:37 PM ******/
-SET ANSI_NULLS ON
-GO
+-- [dbo].[StatusBoardData]
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER VIEW [dbo].[StatusBoardData]
-AS
     SELECT
         [iTx Case ID]
        ,DateX
@@ -108,8 +99,7 @@ AS
                             AND EyeOutcomeDetail = 'Family Decline'
                           ) THEN 1
         END AS TotalTissueAuthorizationDenominator
-       ,CASE WHEN ISNULL(region, '') NOT IN ( 'New England', 'N. Cal - CTDN',
-                                              'Referral Clients', 'Alaska', '' )
+       ,CASE WHEN ISNULL(region, '') NOT IN ( 'New England', 'N. Cal - CTDN' )
                   AND [Coordinating Agency] = 'SightLife'
                   AND EyeOutcome IN ( 'Recovered Donor' )
                   AND EyeOutcomeDetail IN ( 'Discard', 'NSFT - Hold',
