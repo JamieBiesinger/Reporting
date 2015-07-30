@@ -5,15 +5,7 @@
         [iTx Case ID]
        ,DateX
        ,DeathOn
-       ,Region
-       ,SubRegion
-       ,EyeOutcome
-       ,EyeOutcomeDetail
-       ,[Donation Discussion By]
-       ,[Registry Status]
-       ,[Discussion Type]
-       ,TissueOutcome
-       ,[Coordinating Agency]
+      
        ,[Referral Created By First]
        ,[Referral Created By Last]
        ,TissueOutcomeDetail
