@@ -49,8 +49,9 @@ AS
             AND ( et.RecoveryTissueType = 'Cornea' )
             AND ( et.RecoveryTissueSubtype = 'Whole' )
             AND ( dwri.EyebankFollowUp = 'Yes' )
-            AND ( dwri.OutcomeDetail LIKE 'Local%'
-                  OR dwri.OutcomeDetail LIKE 'Domestic%'
+            AND ( dwri.OutcomeDetail LIKE 'Domestic%'
+                  OR dwri.OutcomeDetail LIKE 'No Recovery Agreement%'
+                  OR dwri.OutcomeDetail LIKE 'Recovery Agreement%'
                 )
           UNION
           SELECT
@@ -76,8 +77,9 @@ AS
                     AND ( et.RecoveryTissueType = 'Cornea' )
                     AND ( et.RecoveryTissueSubtype = 'Whole' )
                     AND ( dwri.EyebankFollowUp = 'Yes' )
-                    AND ( dwri.OutcomeDetail LIKE 'Local%'
-                          OR dwri.OutcomeDetail LIKE 'Domestic%'
+                    AND ( dwri.OutcomeDetail LIKE 'Domestic%'
+                          OR dwri.OutcomeDetail LIKE 'No Recovery Agreement%'
+                          OR dwri.OutcomeDetail LIKE 'Recovery Agreement%'
                         ) ) )
         ) AS a
         LEFT OUTER JOIN salesforce.Classification__c AS class ON class.Name = a.Classification__r
