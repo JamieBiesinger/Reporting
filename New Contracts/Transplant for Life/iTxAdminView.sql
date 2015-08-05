@@ -1,26 +1,26 @@
-USE [Warehouse]
-GO
+--USE [Warehouse]
+--GO
 
-/****** Object:  View [dbo].[iTxAdminView]    Script Date: 8/5/2015 4:24:35 PM ******/
-SET ANSI_NULLS ON
-GO
+--/****** Object:  View [dbo].[iTxAdminView]    Script Date: 8/5/2015 4:24:35 PM ******/
+--SET ANSI_NULLS ON
+--GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-/*SELECT * FROM sightlife.dbo.TissueRecoverySiteInspection 
-WHERE   a.retrdiscard = 1
-SELECT  * FROM    ( 
-     ) a
-WHERE   a.retrdiscard = 1*/
-ALTER VIEW [dbo].[iTxAdminView]
+--SET QUOTED_IDENTIFIER ON
+--GO
 
 
+--/*SELECT * FROM sightlife.dbo.TissueRecoverySiteInspection 
+--WHERE   a.retrdiscard = 1
+--SELECT  * FROM    ( 
+--     ) a
+--WHERE   a.retrdiscard = 1*/
+--ALTER VIEW [dbo].[iTxAdminView]
 
---2015_07_17 Changes were made for the halo tissue contract.
---2015_07_17 "THEN 'CTDN'" is changed to "THEN 'DNW'"*/
-AS
+
+
+----2015_07_17 Changes were made for the halo tissue contract.
+----2015_07_17 "THEN 'CTDN'" is changed to "THEN 'DNW'"*/
+--AS
      SELECT DISTINCT
         CASE WHEN dr.DeathOn IS NULL
                   AND dr.AddedToStatlineOn IS NULL THEN dr.ReferredOn
@@ -100,8 +100,9 @@ AS
        ,et.RecoveryIntent
        ,CASE WHEN good.outcome = 'Transplant'
                   AND ( good.outcomeDetail LIKE 'Domestic%'
-                        OR good.outcomeDetail LIKE 'Local%'
-                        OR good.outcomedetail = 'TempOutcomeA'
+						OR good.outcomedetail LIKE 'No Recovery Agreement%'
+						OR good.outcomedetail LIKE 'Recovery Agreement%'
+                      
                       )
                   AND NOT ( ISNULL(et.RecoveryTissueSubtype, '') LIKE 'Glyc%'
                             OR NOT ( GlycKids.ParentId IS NULL )
@@ -109,8 +110,8 @@ AS
         END AS Domestic
        ,CASE WHEN good.outcome = 'Transplant'
                   AND NOT ( good.outcomeDetail LIKE 'Domestic%'
-                            OR good.outcomeDetail LIKE 'Local%'
-                            OR good.outcomedetail = 'TempOutcomeA'
+						OR good.outcomedetail LIKE 'No Recovery Agreement%'
+						OR good.outcomedetail LIKE 'Recovery Agreement%'
                             OR good.outcomedetail = 'TempOutcomeB' --2015_07_17 added for halo contract
                           )
                   AND NOT ( et.RecoveryTissueSubtype LIKE 'Glyc%'
