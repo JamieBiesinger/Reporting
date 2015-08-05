@@ -1,15 +1,15 @@
-USE [Warehouse]
-GO
+--USE [Warehouse]
+--GO
 
-/****** Object:  View [SFOBJECT].[Opportunity_Source]    Script Date: 7/30/2015 10:04:55 AM ******/
-SET ANSI_NULLS ON
-GO
+--/****** Object:  View [SFOBJECT].[Opportunity_Source]    Script Date: 7/30/2015 10:04:55 AM ******/
+--SET ANSI_NULLS ON
+--GO
 
-SET QUOTED_IDENTIFIER ON
-GO
+--SET QUOTED_IDENTIFIER ON
+--GO
 
-ALTER VIEW [SFOBJECT].[Opportunity_Source]
-AS
+--ALTER VIEW [SFOBJECT].[Opportunity_Source]
+--AS
     SELECT
         a.RecordTypeID
        ,a.RequestId AS iTx_ID__c
@@ -155,8 +155,58 @@ AS
         ) AS a
         LEFT OUTER JOIN SIGHTLIFE.dbo.Contact AS c ON a.RequesterID = c.Id
         LEFT OUTER JOIN SIGHTLIFE.dbo.Organization AS o ON o.Id = a.RequestingLocationId
-        LEFT OUTER JOIN dbo.FinancialEdgeInvoiceInfo AS fe ON LOWER(a.TissueIdentifier) = LOWER(fe.DESCRIPTION)
-        LEFT OUTER JOIN (
+        LEFT OUTER JOIN 
+		
+		
+		(
+		
+		
+		SELECT *
+		 FROM warehouse.dbo.FinancialEdgeInvoiceInfo 
+		
+        SELECT
+            fe2.DESCRIPTION
+           ,SUM(Fe2.FE_Amount) AS FE_Amount
+           ,MIN(Fe2.FE_client_name__c) AS FE_Client_name__C
+           ,SUM(Fe2.Balance) AS Balance
+           ,MIN(Fe2.AR7CLIENTSID) AS AR7CLIENTSID
+           ,MAX(Fe2.FE_Last_Updated) AS FE_Last_Updated
+           ,MIN(Fe2.INVOICEDATE) AS INVOICEDATE
+           ,STUFF((
+                    SELECT
+                        ', ' + CAST([fe1].[fe_Invoice] AS VARCHAR(MAX))
+                    FROM
+                        warehouse.dbo.FinancialEdgeInvoiceInfo fe1
+                    WHERE
+                        fe1.DESCRIPTION = fe2.DESCRIPTION ---- string with grouping by fileid
+                  FOR
+                    XML PATH('')
+                  ), 1, 1, '') AS fe_Invoice
+           ,STUFF((
+                    SELECT
+                        ', ' + CAST([fe3].[AR7CLIENTSID] AS VARCHAR(MAX))
+                    FROM
+                        warehouse.dbo.FinancialEdgeInvoiceInfo fe3
+                    WHERE
+                        fe3.DESCRIPTION = fe2.DESCRIPTION ---- string with grouping by fileid
+                  FOR
+                    XML PATH('')
+                  ), 1, 1, '') AS AR7CLIENTSID
+        FROM
+            warehouse.dbo.FinancialEdgeInvoiceInfo fe2
+        GROUP BY
+            fe2.DESCRIPTION
+		--GROUP BY fe.DESCRIPTION  
+        
+		
+		
+		--) fe2 ON LOWER(a.TissueIdentifier) = LOWER(fe.DESCRIPTION)
+		
+		
+		
+		
+		
+		LEFT OUTER JOIN (
                           SELECT
                             RequestId
                            ,MAX(ShipmentCreatedOn) AS max_Date
@@ -351,3 +401,8 @@ AS
 GO
 
 
+
+
+--35FC9502-F480-451C-A730-B3483224A0F6
+--B8CF761F-8CBC-4227-91A9-B86953352556
+--02088679-BBBE-4290-B176-EAA1D8B761F4
