@@ -129,7 +129,9 @@ AS
        ,et.RecoveryIntent
        ,CASE WHEN good.outcome = 'Transplant'
                   AND ( good.outcomeDetail LIKE 'Domestic%'
+						OR good.outcomedetail LIKE 'No Recovery Agreement'
                         OR good.outcomeDetail LIKE 'Local%'
+						OR good.outcomedetail LIKE 'Recovery Agreement'
                       )
                   AND NOT ( et.RecoveryTissueSubtype LIKE 'Glyc%'
                             OR NOT ( GlycKids.ParentId IS NULL )
@@ -137,7 +139,9 @@ AS
         END AS Domestic
        ,CASE WHEN good.outcome = 'Transplant'
                   AND NOT ( good.outcomeDetail LIKE 'Domestic%'
-                            OR good.outcomeDetail LIKE 'Local%'
+						OR good.outcomedetail LIKE 'No Recovery Agreement'
+                        OR good.outcomeDetail LIKE 'Local%'
+						OR good.outcomedetail LIKE 'Recovery Agreement'
                           )
                   AND NOT ( et.RecoveryTissueSubtype LIKE 'Glyc%'
                             OR NOT ( GlycKids.ParentId IS NULL )
