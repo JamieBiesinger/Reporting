@@ -1,15 +1,15 @@
-USE [Warehouse]
-GO
+--USE [Warehouse]
+--GO
 
-/****** Object:  View [dbo].[IndiaAdminStats]    Script Date: 8/5/2015 4:13:56 PM ******/
-SET ANSI_NULLS ON
-GO
+--/****** Object:  View [dbo].[IndiaAdminStats]    Script Date: 8/5/2015 4:13:56 PM ******/
+--SET ANSI_NULLS ON
+--GO
 
-SET QUOTED_IDENTIFIER ON
-GO
+--SET QUOTED_IDENTIFIER ON
+--GO
 
-ALTER VIEW [dbo].[IndiaAdminStats]
-AS
+--ALTER VIEW [dbo].[IndiaAdminStats]
+--AS
     SELECT DISTINCT
         CASE WHEN dr.DeathOn IS NULL THEN dr.ReferredOn
              ELSE dr.DeathOn
