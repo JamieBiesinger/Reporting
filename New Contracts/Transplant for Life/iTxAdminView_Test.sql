@@ -98,7 +98,8 @@ SELECT DISTINCT
         et.RecoveryIntent ,
         CASE WHEN good.outcome = 'Transplant'
                   AND ( good.outcomeDetail LIKE 'Domestic%'
-                        OR good.outcomeDetail LIKE 'Local%'
+						OR good.outcomedetail LIKE 'No Recovery Agreement%'
+						OR good.outcomedetail LIKE 'Recovery Agreement%'
                       )
                   AND NOT ( ISNULL(et.RecoveryTissueSubtype, '') LIKE 'Glyc%'
                             OR NOT ( GlycKids.ParentId IS NULL )
@@ -106,7 +107,8 @@ SELECT DISTINCT
         END AS Domestic ,
         CASE WHEN good.outcome = 'Transplant'
                   AND NOT ( good.outcomeDetail LIKE 'Domestic%'
-                            OR good.outcomeDetail LIKE 'Local%'
+						OR good.outcomedetail LIKE 'No Recovery Agreement%'
+						OR good.outcomedetail LIKE 'Recovery Agreement%'
                           )
                   AND NOT ( et.RecoveryTissueSubtype LIKE 'Glyc%'
                             OR NOT ( GlycKids.ParentId IS NULL )
