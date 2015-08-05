@@ -1,15 +1,15 @@
---USE [Warehouse]
---GO
+USE [Warehouse]
+GO
 
---/****** Object:  View [dbo].[IndiaAdminStats]    Script Date: 8/5/2015 3:15:42 PM ******/
---SET ANSI_NULLS ON
---GO
+/****** Object:  View [dbo].[IndiaAdminStats]    Script Date: 8/5/2015 4:13:56 PM ******/
+SET ANSI_NULLS ON
+GO
 
---SET QUOTED_IDENTIFIER ON
---GO
+SET QUOTED_IDENTIFIER ON
+GO
 
---ALTER VIEW [dbo].[IndiaAdminStats]
---AS
+ALTER VIEW [dbo].[IndiaAdminStats]
+AS
     SELECT DISTINCT
         CASE WHEN dr.DeathOn IS NULL THEN dr.ReferredOn
              ELSE dr.DeathOn
@@ -129,9 +129,7 @@
        ,et.RecoveryIntent
        ,CASE WHEN good.outcome = 'Transplant'
                   AND ( good.outcomeDetail LIKE 'Domestic%'
-						OR good.outcomedetail LIKE 'No Recovery Agreement'
                         OR good.outcomeDetail LIKE 'Local%'
-						OR good.outcomedetail LIKE 'Recovery Agreement'
                       )
                   AND NOT ( et.RecoveryTissueSubtype LIKE 'Glyc%'
                             OR NOT ( GlycKids.ParentId IS NULL )
@@ -139,9 +137,7 @@
         END AS Domestic
        ,CASE WHEN good.outcome = 'Transplant'
                   AND NOT ( good.outcomeDetail LIKE 'Domestic%'
-						OR good.outcomedetail LIKE 'No Recovery Agreement'
-                        OR good.outcomeDetail LIKE 'Local%'
-						OR good.outcomedetail LIKE 'Recovery Agreement'
+                            OR good.outcomeDetail LIKE 'Local%'
                           )
                   AND NOT ( et.RecoveryTissueSubtype LIKE 'Glyc%'
                             OR NOT ( GlycKids.ParentId IS NULL )
