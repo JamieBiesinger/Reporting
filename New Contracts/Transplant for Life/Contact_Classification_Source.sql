@@ -1,15 +1,15 @@
-USE [Warehouse]
-GO
+--USE [Warehouse]
+--GO
 
-/****** Object:  View [SFOBJECT].[Contact_Classification_Source]    Script Date: 8/5/2015 4:47:25 PM ******/
-SET ANSI_NULLS ON
-GO
+--/****** Object:  View [SFOBJECT].[Contact_Classification_Source]    Script Date: 8/5/2015 4:47:25 PM ******/
+--SET ANSI_NULLS ON
+--GO
 
-SET QUOTED_IDENTIFIER ON
-GO
+--SET QUOTED_IDENTIFIER ON
+--GO
 
-ALTER VIEW [SFOBJECT].[Contact_Classification_Source]
-AS
+--ALTER VIEW [SFOBJECT].[Contact_Classification_Source]
+--AS
     SELECT
         a.Contact__r
        ,class.Id AS Classification_r
